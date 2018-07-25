@@ -5,7 +5,7 @@ class OxfordService
 
   def examples
     sentences = results[:results].first[:lexicalEntries].first[:sentences]
-    na_sentences = sentences.find_all do |sentence|
+    sentences.find_all do |sentence|
       sentence[:regions] == ["North American"]
     end.map do |sentence|
       sentence[:text]
@@ -18,15 +18,17 @@ class OxfordService
     parse(get(@word))
   end
 
-  # May need to use lemmatron later
-  def get(word)
-    conn = Faraday.new("https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word}/sentences") do |faraday|
+  def conn(word)
+    Faraday.new("https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word}/sentences") do |faraday|
       faraday.headers["Accept"] = "application/json"
       faraday.headers["app_id"] = "858f22d1"
       faraday.headers["app_key"] = "fe2c773b59e493eded930870360091a1"
       faraday.adapter Faraday.default_adapter
     end
-    conn.get.body
+  end
+
+  def get(word)
+    conn(word).get.body
   end
 
   def parse(json)

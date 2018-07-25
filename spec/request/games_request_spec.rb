@@ -14,7 +14,7 @@ describe 'get request to games', :type => :request do
 
     get '/api/v1/games/1'
 
-    expected =  JSON.parse('{
+    expected = JSON.parse('{
       "game_id":1,
       "scores": [
         {
@@ -46,7 +46,7 @@ describe 'get request to games', :type => :request do
     post "/api/v1/games/1/plays?user_id=1&word=at"
 
     expect(response.status).to be(201)
-    expected =  JSON.parse('{
+    expected = JSON.parse('{
       "game_id":1,
       "scores": [
         {
