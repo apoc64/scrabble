@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'get request to games' do
+describe 'get request to games', :type => :request do
   it 'makes proper response' do
     get '/api/v1/games/1'
 
