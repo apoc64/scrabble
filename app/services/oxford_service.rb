@@ -4,8 +4,12 @@ class OxfordService
   end
 
   def examples
-    ex = results #[:lexicalEntries][:sentences]
-    binding.pry
+    sentences = results[:results].first[:lexicalEntries].first[:sentences]
+    na_sentences = sentences.find_all do |sentence|
+      sentence[:regions] == ["North American"]
+    end.map do |sentence|
+      sentence[:text]
+    end
   end
 
   private
