@@ -3,12 +3,11 @@ class OxfordService
     @word = word
   end
 
-  def results
-    parse(get(@word))[:results]
+  def results(result_type = 'sentences', language = 'en')
+    parse(get(@word, result_type, language))[:results]
   end
 
   private
-
 
   def conn
     Faraday.new("https://od-api.oxforddictionaries.com:443") do |faraday|
@@ -19,8 +18,8 @@ class OxfordService
     end
   end
 
-  def get(word)
-    conn.get("/api/v1/entries/en/#{word}/sentences").body
+  def get(word, result_type, language)
+    conn.get("/api/v1/entries/#{language}/#{word}/#{result_type}").body
   end
 
   def parse(json)
