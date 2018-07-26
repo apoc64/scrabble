@@ -2,14 +2,12 @@ require 'rails_helper'
 
 describe 'oxford service' do
   it 'returns valid examples' do
-    oxford = OxfordService.new('mindfulness')
-    sentences = oxford.examples
+    word = 'mindfulness'
+    oxford = OxfordService.new(word)
+    results = oxford.results
 
-    sentences.each do |sentence|
-      # Begin with uppercase letter, end in period, contain word
-      expect(sentence[0]).to eq(sentence[0].upcase)
-      expect(sentence[-1]).to eq('.')
-      expect(sentence).to include('mindfulness')
-    end
+    expect(results).to be_a(Array)
+    result_id = results.first[:id]
+    expect(result_id).to eq(word)
   end
 end

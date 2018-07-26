@@ -3,20 +3,20 @@ class OxfordService
     @word = word
   end
 
-  def examples
-    sentences = results[:results].first[:lexicalEntries].first[:sentences]
-    sentences.find_all do |sentence|
-      sentence[:regions] == ["North American"]
-    end.map do |sentence|
-      sentence[:text]
-    end
+  # def examples
+  #   sentences = results[:results].first[:lexicalEntries].first[:sentences]
+  #   sentences.find_all do |sentence|
+  #     sentence[:regions] == ["North American"]
+  #   end.map do |sentence|
+  #     sentence[:text]
+  #   end
+  # end
+  def results
+    parse(get(@word))[:results]
   end
 
   private
 
-  def results
-    parse(get(@word))
-  end
 
   def conn(word)
     Faraday.new("https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word}/sentences") do |faraday|
