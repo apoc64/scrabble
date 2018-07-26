@@ -13,10 +13,9 @@ describe 'user submits word' do
     within(first('.example')) do
       expect(page).to have_content('mindfulness')
     end
-
     # North American Example
     expect(page).to have_content("So mindfulness of drinking is already one kind of enlightenment.")
     # Non-North American Example
-    expect(page).to_not have_content("If you think mindfulness involves labeling what comes up and doing everything in a very deliberate fashion, you will suffer enormously because the world is not under your control.")
+    expect(page).to_not have_content("If you think mindfulness involves labeling what comes up and doing everything in a very deliberate fashion, you will suffer enormously because")
   end
 end

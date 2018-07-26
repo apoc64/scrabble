@@ -1,7 +1,7 @@
 <h1>Examples for using '<%= @presenter.word %>'</h1>
 
 <ul>
-<% @presenter.examples.each do |example| %>
-  <li class="example"><%= example %></li>
+<% @presenter.examples.each do |sentence| %>
+  <li class="example"><%= sentence.text %></li>
 <% end %>
 </ul>

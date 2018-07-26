@@ -13,16 +13,9 @@ class SearchPresenter
   private
 
   def get_sentences(results, region = ["North American"])
-    all_sentences = results.first[:lexicalEntries].first[:sentences]
-    regional_sentences = filter_region(all_sentences, region)
-    regional_sentences.map do |sentence|
-      sentence[:text]
-    end
-  end
-
-  def filter_region(sentences, region)
-    sentences.find_all do |sentence|
-      sentence[:regions] == region
+    sentences = results.first[:lexicalEntries].first[:sentences]
+    sentences.map do |sentence|
+      Sentence.new(sentence)
     end
   end
 
