@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'user submits word' do
   it 'shows examples of that word' do
+    allow_any_instance_of(OxfordService).to receive(:results).and_return(stubbed_oxford_response)
 
     visit "/"
     fill_in 'word', with: "mindfulness"
@@ -12,8 +13,10 @@ describe 'user submits word' do
     within(first('.example')) do
       expect(page).to have_content('mindfulness')
     end
-    # And I should see a list of sentences with examples of how to use the word
-    # And I should see only sentences for usage in North America
-    # And I should not see sentences for any other regions
+
+    # North American Example
+    expect(page).to have_content("So mindfulness of drinking is already one kind of enlightenment.")
+    # Non-North American Example
+    expect(page).to_not have_content("If you think mindfulness involves labeling what comes up and doing everything in a very deliberate fashion, you will suffer enormously because the world is not under your control.")
   end
 end

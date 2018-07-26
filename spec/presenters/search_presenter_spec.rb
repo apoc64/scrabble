@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'search presenter' do
   it 'gets examples' do
     allow_any_instance_of(OxfordService).to receive(:results).and_return(stubbed_oxford_response)
+    
     word = 'mindfulness'
     sp = SearchPresenter.new(word)
     examples = sp.examples
