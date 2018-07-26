@@ -7,7 +7,6 @@ class SearchPresenter
 
   def examples
     results = oxford.results
-    # binding.pry
     get_sentences(results)
   end
 

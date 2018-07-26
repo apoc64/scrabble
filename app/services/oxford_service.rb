@@ -3,14 +3,6 @@ class OxfordService
     @word = word
   end
 
-  # def examples
-  #   sentences = results[:results].first[:lexicalEntries].first[:sentences]
-  #   sentences.find_all do |sentence|
-  #     sentence[:regions] == ["North American"]
-  #   end.map do |sentence|
-  #     sentence[:text]
-  #   end
-  # end
   def results
     parse(get(@word))[:results]
   end
@@ -18,8 +10,8 @@ class OxfordService
   private
 
 
-  def conn(word)
-    Faraday.new("https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word}/sentences") do |faraday|
+  def conn
+    Faraday.new("https://od-api.oxforddictionaries.com:443") do |faraday|
       faraday.headers["Accept"] = "application/json"
       faraday.headers["app_id"] = ENV["app_id"]
       faraday.headers["app_key"] = ENV["app_keys"]
@@ -28,7 +20,7 @@ class OxfordService
   end
 
   def get(word)
-    conn(word).get.body
+    conn.get("/api/v1/entries/en/#{word}/sentences").body
   end
 
   def parse(json)
