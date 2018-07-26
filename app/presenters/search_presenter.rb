@@ -12,11 +12,11 @@ class SearchPresenter
 
   private
 
-  def get_sentences(results, region = ["North American"])
+  def get_sentences(results, region_filter = "North American")
     sentences = results.first[:lexicalEntries].first[:sentences]
     sentences.map do |sentence|
-      Sentence.new(sentence)
-    end
+      Sentence.new(sentence) unless !sentence[:regions].include?(region_filter)
+    end.compact
   end
 
   def oxford
